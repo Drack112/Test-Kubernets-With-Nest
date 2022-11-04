@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nest-config
+data:
+  env: |
+    REDIS_HOST="localhost"
+    REDIS_PORT="6379"

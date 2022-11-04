@@ -1,0 +1,31 @@
+services:
+  api:
+    container_name: 'nestjs-app'
+    image: drack112/nestjs-kubernets:latest
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build production stage from our dockerfile
+      target: production
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    # Run in dev Mode: npm run start:dev
+    #command: npm run start:prod
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+
+  redis: # Name of container
+    container_name: 'redis-nestjs'
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+volumes:
+  redis:
+    driver: local
